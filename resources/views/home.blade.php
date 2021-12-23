@@ -2,6 +2,6 @@
 @section('title','Home')
 @section('content')
 <div class="container-fluid test_border body_frame">
-body area
+<h1>body content</h1>
 </div>
 @endsection
