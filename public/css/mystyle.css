@@ -1,0 +1,266 @@
+.test_color{
+    color:brown;
+}
+.test_border{
+    border:1px solid red;
+}
+
+.top_bar{
+    height:100px;
+    background: #bfbfc7;
+    
+}
+.logo_frame{
+    height: 70px;
+    color:#fff;
+    /*border-bottom: 1px solid #fff; */
+}
+.menu_frame{
+    
+    height:65px;
+    background: #fff;
+    box-shadow: 0px 2px 5px #302f2f;
+    z-index: 1;
+    margin-top: -30px;
+}
+.body_frame{
+    height: auto;
+    min-height: 100vh;
+}
+.top_logo{
+    padding-left:0;
+}
+.top_logo img{
+    float:left;
+}
+.main_title{
+    float:left;
+    text-transform: uppercase;
+    font-style: italic;
+    color:#c81622;
+    font-weight: bold;
+    font-size: 22px;
+    margin-top:39px;
+}
+.sign_in{
+    margin-top:15px;
+    text-align: right;
+    border-right:2px solid #fff;
+    padding:0 30px 0 0;
+}
+.help{
+    margin-top:15px;
+    text-align: right;
+    padding:0 30px 0 0;
+}
+a{
+    text-decoration: none;
+}
+.smaill_size_link{
+    font-size: 13px;
+}
+.normal_link{
+    font-size: 14px;
+}
+.smaill_size_link a{
+    color:#ff0000;
+}
+.normal_link a{
+    color:#252424;
+}
+a:hover{
+    color:#c8141d;
+}
+.menu{
+    list-style-type: none;
+    padding:0;
+    margin:0;
+}
+.menu li{
+    float:left;
+    min-width: 100px;
+    text-align:center;
+    padding-top:10px;
+    padding-bottom: 10px;
+    margin-top:10px;
+    font-size:14px;
+}
+.menu li a{
+    color:#454546;
+}
+.menu li a:hover{
+    color:#c8141d;
+}
+.menu li:hover .bg_box{ display: block;}
+.bg_box{
+    clip-path: polygon(25% 0%, 76% 0, 100% 20%, 0 20%);
+    background: #bfbfc7;
+    position: absolute;
+    width:105px;
+    height: 90px;
+    margin-top:6px;
+    display: none;
+    color:#a2a2aa;
+    font-size: 11px;
+}
+.quick_send_icon{
+    font-size: 25px;
+    text-align: right;
+    padding-right: 15px;
+    padding-top:15px;
+}
+.quick_send_icon i{
+    transform: rotate(20deg);
+    margin-right:20px;
+}
+.quick_send_icon a{
+    color:#c8141d;
+}
+.quick_send_icon a:hover{
+    color:red;
+}
+/* ------- start mobile menu --------- */
+.mobile_hd_frame {
+    height:100px;
+    visibility:hidden;
+}
+.mobile_logo_frame{
+    float:left;
+    width:60%;
+    height:70px;
+    padding-left: 0;
+}
+.mobile_signin_frame{
+    float:left;
+    width:40%;
+    height:70px;
+    text-align: right;
+    padding-top:25px;
+}
+.mobile_logo_frame img{
+    float:left;
+    width:52px;
+    margin-top: 10px;
+}
+.mobile_menu_frame{
+    float:left;
+    width:100%;
+    height:50px;
+    z-index: 10;
+    position: relative;
+    padding-left: 0;
+}
+.m_menu_bar{
+    float:left;
+    width:7%;
+    text-align:center;
+    color:#4d4c51;
+    font-size: 20px;
+    
+}
+.m_search_frame{
+    background: #fff;
+    height:50px;
+    width:93%;
+    float: left;
+    box-shadow: 0px 2px 5px #302f2f;
+}
+.mobile_quick_start{
+    text-align: right;
+    padding-right:30px;
+    padding-top: 10px;
+}
+.mobile_quick_start i{
+    color:red;
+    transform: rotate(20deg);
+    font-size: 20px;
+}
+.input-group-text{
+    background:#c3191a;
+    border:#c3191a;
+    height:32px;
+    color:#fff;
+}
+.mobile_track_search_box{
+    padding-top:9px;
+    padding-left:20px;
+}
+/* m menu */
+.header__button {
+    width: var(--header-height);
+    flex-shrink: 0;
+    background: none;
+    outline: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+}
+.nav__links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    height: 100vh;
+    width: 250px;
+    background: #ffffff;
+    transform: translateX(-250px);
+    transition: transform 0.3s;
+}
+
+.nav--open .nav__links {
+    transform: translateX(0);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav__link {
+    display: flex;
+    align-items: center;
+    color: #666666;
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 12px 15px;
+    background: transform 0.2s;
+}
+
+.nav__link > i {
+    margin-right: 15px;
+}
+
+.nav__link--active {
+    color: #c3191a;
+}
+
+.nav__link--active,
+.nav__link:hover {
+    background: #eeeeee;
+}
+
+.nav__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.nav--open .nav__overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* ------- end mobile menu --------- */
+/* ....................... small size view ..................... */
+@media (max-width: 768px) { 
+    .logo_frame{display: none;}
+    .menu_frame{display: none;}
+    .sticky{
+        display: none;
+    }
+    .mobile_hd_frame { visibility: visible;}
+ }
