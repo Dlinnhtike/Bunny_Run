@@ -20,7 +20,7 @@
     height:65px;
     background: #fff;
     box-shadow: 0px 2px 5px #302f2f;
-    z-index: 1;
+    z-index: 2;
     margin-top: -30px;
 }
 .body_frame{
@@ -118,6 +118,69 @@ a:hover{
 }
 .quick_send_icon a:hover{
     color:red;
+}
+.hd_photo_frame{
+    background-color: #f0f0f0;
+    height: auto !important;
+
+}
+.hd_photo_left{
+    padding:0;
+}
+.hd_photo_left img{
+    /*background-image: url('../img/hd_left_bg.jpg');*/
+    width:100%;
+}
+.hd_photo_right{
+    text-align: right;
+    padding:0;
+}
+.hd_photo_right img{
+    width:100%;
+}
+.mobile_hd_photo_frame{
+    display: none;
+}
+.hd_img_text{
+    position:absolute;
+    z-index: 1;
+    padding-top:8%;
+}
+.hd_img_text h1{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 30px;
+    color:#c50501;
+}
+.bold_text_style{
+    font-size: 27px;
+    font-style: italic;
+    color:#9b9b9b;
+    font-weight: bold;
+}
+.hd_img_text .input-group-text{
+height:50px;
+}
+.form-control:focus{
+    outline: none;
+}
+.find_package{
+    margin-top:60px;
+}
+.content_heading_text{
+    font-size: 25px;
+    color:#c20d1b;
+    text-align: center;
+    padding-top:50px;
+    padding-bottom: 35px;
+    font-family: 'Quicksand', sans-serif;
+}
+.inner_box{
+    border-radius: 10px;
+    min-height: 220px;
+    margin-bottom: 20px;
+    border:1px solid #ccc;
+    padding:20px;
+    box-shadow:1px 1px 8px #b1b0b0;
 }
 /* ------- start mobile menu --------- */
 .mobile_hd_frame {
@@ -247,6 +310,7 @@ a:hover{
     visibility: hidden;
     opacity: 0;
     transition: opacity 0.3s;
+    z-index: 2;
 }
 
 .nav--open .nav__overlay {
@@ -263,4 +327,24 @@ a:hover{
         display: none;
     }
     .mobile_hd_frame { visibility: visible;}
+    .hd_photo_right{display:none;}
+    .hd_photo_left{display: none;}
+    .mobile_hd_photo_frame{
+        display:block;
+        padding:0;
+    }
+    .mobile_hd_photo_frame img{
+        width:60%;
+        float:right;
+    }
+    .find_package{
+        display:none;
+    }
+    .form-control:focus{
+        outline: none;
+    }
+ }
+ @media (max-width: 576px)
+ {
+     .hd_intro_text{display:none;}
  }

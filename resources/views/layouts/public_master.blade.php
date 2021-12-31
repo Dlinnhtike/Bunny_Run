@@ -11,12 +11,15 @@
     <link href="{{asset('font_awsome/css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('font_awsome/css/brands.css')}}" rel="stylesheet">
     <link href="{{asset('font_awsome/css/solid.css')}}" rel="stylesheet">
+    <!-- Google Fonts -->
+     
     <title>Bunny Run | @yield('title')</title>
     <style>
       .sticky{
-        position: -webkit-sticky; position: sticky; top: 29px;
-        border:1px solid #fff;
+        position: -webkit-sticky; position: sticky; top: 10px;
+        //border:1px solid #f0f0f0;
         height:1px;
+        z-index: 2;
       }
     </style>
   </head>
