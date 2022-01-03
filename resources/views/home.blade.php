@@ -34,16 +34,98 @@
         <div class="row">
             <div class="col-10 offset-1">
                 <div class="row">
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-4">
                         <div class="inner_box ">
-                            data
+                            <a href="{{url('/create_account')}}">
+                            <div class="inner_icon">
+                                <img src="{{asset('img/icon_1.jpg')}}" alt="">
+                            </div>
+                            <div class="title"> Create Account</div>
+                            <div class="desc">
+                            Get started in less than 3 minutes
+                            </div>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-4">
-                        <div class="inner_box ">data</div>
+                    <div class="col-md-4">
+                        <div class="inner_box ">
+                            <div class="inner_icon">
+                                <img src="{{asset('img/icon_2.jpg')}}" alt="">
+                            </div>
+                            <div class="title"> Send parcels</div>
+                            <div class="desc">
+                            Fill Delivery Info and upload photo
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-4 col-sm-4">
-                        <div class="inner_box ">data</div>
+                    <div class="col-md-4">
+                        <div class="inner_box ">
+                            <div class="inner_icon">
+                                <img src="{{asset('img/icon_3.jpg')}}" alt="">
+                            </div>
+                            <div class="title"> Delivery</div>
+                            <div class="desc">
+                            Confirmation, Collection and Delivery
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<div class="cointer-fluid body_quick_start_frame">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 big_hd_text">Quick Start Now!</div>
+                    <div class="col-lg-4 col-md-4" style="text-align:center;">
+                        <button type="button" class="btn quick_start_button" style="border-radius:0;"><i class="fas fa-paper-plane"></i> &nbsp; START</button>
+                    </div>
+                    <div class="col-lg-4 col-md-4 right_bar_img">
+                        <img src="{{asset('img/right_bar.jpg')}}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cointer-fluid services_frame">
+    <div class="container">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="content_heading_text">
+                            Services<br>
+                            <img src="{{asset('img/banny_icon_with_line.jpg')}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 services_col">
+                        <div class="services_inner_icon">
+                            <img src="{{asset('img/icon_4.jpg')}}" alt="">
+                        </div>
+                        <div class="desc">
+                            Pickups Parcel
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 services_col">
+                        <div class="services_inner_icon">
+                            <img src="{{asset('img/icon_5.jpg')}}" alt="">
+                        </div>
+                        <div class="desc">
+                        Cash-on-delivery
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 services_col">
+                        <div class="services_inner_icon">
+                            <img src="{{asset('img/icon_6.jpg')}}" alt="">
+                        </div>
+                        <div class="desc">
+                        Money Back Warranty
+                        </div>
                     </div>
                 </div>
             </div>
