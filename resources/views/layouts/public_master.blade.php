@@ -157,11 +157,76 @@
         <div class="nav__overlay"></div>
     </nav>
     @yield('content')
-    <div class="container-fluid">
-        footer bar
-        <p>test</p>
-        <p>test</p>
-        <p>test</p>
+    <div class="container-fluid footer_frame">
+        <div class="footer_info">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-4 col-sm-6 footer_logo">
+                <img src="{{asset('img/footer_logo.png')}}" alt="">
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 footer_menu">
+                <div class="foot_hd_text">Links</div>
+                <div class="links_box ">
+                  <div class="foot_left_link">
+                    <ul style="" class="">
+                      <li>Home</li>
+                      <li>About</li>
+                      <li>Services</li>
+                    </ul>
+                  </div>
+                  <div class="foot_right_link">
+                    <ul style="" class="">
+                      <li>Home</li>
+                      <li>About</li>
+                      <li>Services</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 footer_menu">
+                <div class="foot_hd_text">Quick Send</div>
+                <div class="links_box ">
+                  <div class="">
+                    <ul style="" class="">
+                      <li>Quick Start Now!</li>
+                      <li>
+                      <button type="button" class="btn foot_quick_start_button" style="border-radius:0;"><i class="fas fa-paper-plane"></i> &nbsp; START</button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-4 col-sm-6 footer_menu">
+                <div class="foot_hd_text">We Accept</div>
+                <div class="links_box ">
+                  <div class="">
+                    <ul style="" class="">
+                      <li>
+                        <img src="{{asset('img/ok_icon.jpg')}}" alt="">
+                        <img src="{{asset('img/master_icon.jpg')}}" alt="">
+                        <img src="{{asset('img/visa_icon.jpg')}}" alt="">
+                      </li>
+                      <li>
+                      <img src="{{asset('img/mpu_icon.jpg')}}" alt="">
+                        <img src="{{asset('img/kpay_icon.jpg')}}" alt="">
+                        <img src="{{asset('img/aya_icon.jpg')}}" alt="">
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row footer_copyright">
+            <div class="col-lg-6 col-md-6 col-sm-6 foot_copy_text">
+              &copy; copyright : 2022 allright reserved.
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 foot_dev_text">
+              Develop By <span>Lh</span>@
+              <img src="{{asset('img/icg_logo.png')}}" alt="" style="width:40px; margin-top:-7px;">
+            </div>
+        </div>
     </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
