@@ -1,6 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/jcdrrudm/repositories/
-
+    - export DEPLOYPATH=/home/jcdrrudm/public_html/
     - /bin/cp * $DEPLOYPATH
+    
