@@ -131,7 +131,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
-          
+          @php 
+              $data= App\Models\SystemUser::find(Session::get('UserId'))
+          @endphp
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
@@ -139,7 +141,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- The user image in the navbar-->
               <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Admin Name</span>
+              <span class="hidden-xs" style="text-transform:uppercase;">{{$data->username}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -148,7 +150,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                 <p>
                   Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <small>Bunny Run System Administration</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -159,7 +161,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{url('/logout')}}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -201,21 +203,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
       </form>
       <!-- /.search form -->
-
+     
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">HEADER</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+        <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li ><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="treeview {{ Request::is('system/*') ? 'active' : '' }}">
+          <a href="#"><i class="fa fa-gears"></i> <span>System Setup</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
+            <li class="{{ Request::is('system/creatUser') ? 'active' : '' }}"><a href="{{url('/system/creatUser')}}">Create System User</a></li>
             <li><a href="#">Link in level 2</a></li>
           </ul>
         </li>

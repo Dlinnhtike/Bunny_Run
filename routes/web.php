@@ -19,4 +19,8 @@ Route::get('/', function () {
 Route::get('/adminApanel', function () {
     return view('admin.login');
 });
-Route::get("/dashboard",[AdminController::class,"dashboard"]);
+Route::get("/logout",[AdminController::class,"logout"])->name('logout');
+Route::post("/systemuser_login",[AdminController::class,"systemuser_login"])->name('systemuser_login');
+Route::get("/dashboard",[AdminController::class,"dashboard"])->middleware('isloggedin');
+Route::get("/system/creatUser",[AdminController::class,"createUser"])->middleware('isloggedin');
+Route::post("/add_system_user",[AdminController::class,"add_system_user"]);
