@@ -16,9 +16,25 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/services', function () {
+    return view('services');
+});
+Route::get('/about', function () {
+    return view('about');
+});
+Route::get('/pricing', function () {
+    return view('pricing');
+});
+Route::get('/blog', function () {
+    return view('blog');
+});
+Route::get('/contact', function () {
+    return view('contact');
+});
 Route::get('/adminApanel', function () {
     return view('admin.login');
 });
+
 Route::get("/logout",[AdminController::class,"logout"])->name('logout');
 Route::post("/systemuser_login",[AdminController::class,"systemuser_login"])->name('systemuser_login');
 Route::get("/dashboard",[AdminController::class,"dashboard"])->middleware('isloggedin');

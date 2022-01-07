@@ -92,6 +92,9 @@
           <!-- end mobile menu -->
         </div>
     </div>
+    @php
+      $check_link = Request::segment(1)
+    @endphp
     <div class="container-fluid sticky">
     <div class="col-12">
           <div class="container"> 
@@ -99,15 +102,15 @@
                     <div class="col-12">
                       <div class="row">
                       <div class="col-lg-10 col-md-11">
-                      
+                    
                         <ul class="menu">
-                          <li><a href="#">Home</a> <div class="bg_box">Home</div></li>
-                          <li><a href="#">Services</a> <div class="bg_box">Services</div></li>
-                          <li><a href="#">Pricing</a> <div class="bg_box">Pricing</div></li>
-                          <li><a href="#">Blog</a> <div class="bg_box">Blog</div></li>
-                          <li><a href="#">About Us</a> <div class="bg_box">About Us</div></li>
-                          <li><a href="#">Contact Us</a> <div class="bg_box">Contact Us</div></li>
-                          <li></li>
+                          <li><a href="{{url('/')}}" style="color:@php if($check_link==''){echo 'red';} @endphp">Home </a> <div class="bg_box">Home</div></li>
+                          <li><a href="{{url('/services')}}" style="color:@php if($check_link=='services'){echo 'red';} @endphp">Services</a> <div class="bg_box">Services</div></li>
+                          <li><a href="{{url('/pricing')}}" style="color:@php if($check_link=='pricing'){echo 'red';} @endphp">Pricing</a> <div class="bg_box">Pricing</div></li>
+                          <li><a href="{{url('/blog')}}" style="color:@php if($check_link=='blog'){echo 'red';} @endphp">Blog</a> <div class="bg_box">Blog</div></li>
+                          <li><a href="{{url('/about')}}" style="color:@php if($check_link=='about'){echo 'red';} @endphp">About Us</a> <div class="bg_box">About Us</div></li>
+                          <li><a href="{{url('/contact')}}" style="color:@php if($check_link=='contact'){echo 'red';} @endphp">Contact Us</a> <div class="bg_box">Contact Us</div></li>
+                          
                         </ul>
                       </div>
                       <div class="col-lg-2 col-md-1 quick_send_icon">
@@ -129,27 +132,27 @@
             <img src="{{asset('img/logo.png')}}" alt="">
             <span class="main_title">Bunny Run</span>
             </a>
-            <a class="nav__link nav__link--active" href="#">
+            <a class="nav__link nav__link--active" href="{{url('/')}}">
                 <i class="fa fa-home"></i>
                 Home
             </a>
-            <a class="nav__link" href="#">
+            <a class="nav__link" href="{{url('/services')}}">
                 <i class="fa fa-dolly"></i>
                 Services
             </a>
-            <a class="nav__link" href="#">
+            <a class="nav__link" href="{{url('/pricing')}}">
                 <i class="fa fa-hand-holding-usd"></i>
                 Pricing
             </a>
-            <a class="nav__link" href="#">
+            <a class="nav__link" href="{{url('/blog')}}">
                 <i class="fa fa-comment-alt"></i>
                 Blog
             </a>
-            <a class="nav__link" href="#">
+            <a class="nav__link" href="{{url('/about')}}">
                 <i class="fa fa-flag"></i>
                 About Us
             </a>
-            <a class="nav__link" href="#">
+            <a class="nav__link" href="{{url('/contact')}}">
                 <i class="fa fa-address-card"></i>
                 Contact Us
             </a>

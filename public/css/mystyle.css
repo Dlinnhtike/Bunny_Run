@@ -26,6 +26,7 @@
 .body_frame{
     height: auto;
     min-height: 100vh;
+    margin-top:28px;
 }
 .top_logo{
     padding-left:0;
@@ -102,6 +103,9 @@ a:hover{
     display: none;
     color:#a2a2aa;
     font-size: 11px;
+}
+.link_active{
+    color:#c8141d;
 }
 .quick_send_icon{
     font-size: 25px;
@@ -443,7 +447,30 @@ height:50px;
     visibility: visible;
     opacity: 1;
 }
-
+.page_banner{
+    padding:0;
+}
+.page_banner img{
+    width:100%;
+    margin:0;
+    padding:0;
+}
+.banner_nav{
+    height:auto;
+    position: absolute;
+    z-index: 1;
+    margin-top: 5%;
+}
+.banner_title{
+    font-size: 25px;
+    padding-top: 40px;
+    font-family: 'Quicksand', sans-serif;
+    color:#c8141d;
+}
+.under_construction{
+    padding:50px;
+    text-align: center;
+}
 /* ------- end mobile menu --------- */
 /* ....................... small size view ..................... */
 @media (max-width: 1075px) and (min-width: 1010px){
@@ -462,6 +489,7 @@ height:50px;
     }
 }
 @media (max-width: 768px) { 
+    .body_frame{margin-top: 0;}
     .logo_frame{display: none;}
     .menu_frame{display: none;}
     .sticky{
@@ -496,6 +524,9 @@ height:50px;
     .quick_start_button{
         margin-bottom:15px;
     }
+    .banner_title{display: none;}
+    .banner_nav{display: none;}
+   
  }
  @media (max-width: 576px)
  {
@@ -508,4 +539,12 @@ height:50px;
          text-align: center;
          padding:0;
      }
+     .m_menu_bar{
+        width:10%;
+    }
+    .m_search_frame{
+        
+        width:90%;
+       
+    }
  }
