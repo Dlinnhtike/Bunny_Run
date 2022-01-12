@@ -40,12 +40,12 @@
     <form action="{{route('systemuser_login')}}" method="post">
     @csrf
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="User Name" name="name">
+        <input type="text" class="form-control" placeholder="User Name" name="name" @if(Cookie::has('username')) value="{{Cookie::get('username')}}" @endif>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         <span class="text-danger"> @error('name') {{$message}} @enderror</span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="password">
+        <input type="password" class="form-control" placeholder="Password" name="password" @if(Cookie::has('password')) value="{{Cookie::get('password')}}" @endif>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         <span class="text-danger"> @error('password') {{$message}} @enderror</span>
       </div>
@@ -53,7 +53,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck" style="padding-left:20px;">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox" value="remember_me" id="remember_me" name="remember_me" @if(Cookie::has('username')) checked @endif> Keep Me Looged in
             </label>
           </div>
         </div>

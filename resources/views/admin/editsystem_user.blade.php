@@ -1,5 +1,5 @@
 @extends('layouts.admin_master')
-@section('title','Create System User')
+@section('title','Edit System User')
 
 @section('content')
 <!-- Content Wrapper. Contains page content -->
@@ -25,7 +25,7 @@
                     <div class="row">
                     <div class="col-lg-6">  
                     <!-- {{ Request::segment(1) }} -->
-                        <form role="form" action="{{url('add_system_user')}}" method="POST">
+                        <form role="form" action="{{url('update_systemuser')}}" method="POST">
                             @csrf
                             @if(Session::has('success'))
                             <div class="alert alert-success alert-dismissible">
@@ -44,11 +44,12 @@
                         <div class="box-body">
                             <div class="form-group">
                             <label for="">User Name</label><span class="text-danger">: @error('username') {{$message}} @enderror</span>
-                            <input type="text" class="form-control" id="" name="username" placeholder="User Name" value="{{old('username')}}">
-                            </div>
+                            <input type="text" class="form-control" id="" name="username" placeholder="User Name" value="{{$userdata->username}}">
+                            <input type="hidden" value="{{$userdata->id}}" name="id">      
+                        </div>
                             <div class="form-group">
                             <label for="">Email address</label> <span class="text-danger">: @error('email') {{$message}} @enderror</span>
-                            <input type="email" class="form-control" id="" name="email" placeholder="Enter email" value="{{old('email')}}">
+                            <input type="email" class="form-control" id="" name="email" placeholder="Enter email" value="{{$userdata->email}}">
                             </div>
                             <div class="form-group">
                             <label for="">Password</label> <span class="text-danger">: @error('password') {{$message}} @enderror</span>
@@ -62,18 +63,18 @@
                             <label for="">Employee Name </label><span class="text-danger">: @error('empID') {{$message}} @enderror</span>
                             <select name="empID" id="" class="form-control">
                                 <option value="">Select User Type</option>
-                                <option value="1" {{ old('empID') == '1' ? 'selected' : '' }}>Ko Win Htike</option>
-                                <option value="2" {{ old('empID') == '2' ? 'selected' : '' }}>Ma May Thu Zaw</option>
-                                <option value="3" {{ old('empID') == '3' ? 'selected' : '' }}>Ko Linn Htike</option>
+                                <option value="1" @if($userdata->empID==1) {{'selected'}} @endif>Ko Win Htike</option>
+                                <option value="2" @if($userdata->empID==2) {{'selected'}} @endif>Ma May Thu Zaw</option>
+                                <option value="3" @if($userdata->empID==3) {{'selected'}} @endif>Ko Linn Htike</option>
                             </select>
                             </div>
                             <div class="form-group">
                             <label for="">User Type (Rank) </label><span class="text-danger">: @error('usertypeID') {{$message}} @enderror</span>
                             <select name="usertypeID" id="" class="form-control">
                                 <option value="">Select User Type</option>
-                                <option value="1" {{ old('usertypeID') == '1' ? 'selected' : '' }}>Administrator</option>
-                                <option value="2" {{ old('usertypeID') == '2' ? 'selected' : '' }}>Manager</option>
-                                <option value="3" {{ old('usertypeID') == '3' ? 'selected' : '' }}>Editor</option>
+                                <option value="1" @if($userdata->usertypeID==1) {{'selected'}} @endif>Administrator</option>
+                                <option value="2" @if($userdata->usertypeID==2) {{'selected'}} @endif>Manager</option>
+                                <option value="3" @if($userdata->usertypeID==3) {{'selected'}} @endif>Editor</option>
                             </select>
                             </div>
                         </div>
