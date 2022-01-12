@@ -28,6 +28,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
+
                 <div class="content_heading_text">Let's Start Shipping</div>
             </div>
         </div>

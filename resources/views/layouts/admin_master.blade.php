@@ -7,7 +7,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bunny Admin | @yield('title')</title>
+  <title>@yield('title') | Bunny Admin Panel</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{asset('admin/bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
@@ -131,24 +131,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
-          
+          @php 
+              $data= App\Models\SystemUser::find(Session::get('Usersession')['UserId'])
+          @endphp
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <!-- <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> -->
+              <img src="{{asset('admin/dist/img/avatar.png')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Admin Name</span>
+              <span class="hidden-xs" style="text-transform:uppercase;">{{$data->username}}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <!-- <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
+                <img src="{{asset('admin/dist/img/avatar.png')}}" class="img-circle" alt="User Image">
 
                 <p>
-                  Web Developer
-                  <small>Member since Nov. 2012</small>
+                  <span style="text-transform:uppercase">{{Session::get('Usersession')['UserName']}}</span>
+                  <br>
+                  @php
+                    $usertype =Session::get('Usersession')['UserType'];
+                  @endphp
+                  @if($usertype==1)
+                    Administrator
+                  @endif
+                  @if($usertype==2)
+                    Manager
+                  @endif
+                  @if($usertype==3)
+                    Editor
+                  @endif
+                  <small>Bunny Run System Administration</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -156,10 +171,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{url('/system/userprofile')}}" class="btn btn-info btn-flat"><i class="fa fa-user"></i> Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{url('/logout')}}" class="btn btn-danger btn-flat"><i class="fa fa-power-off"></i> Sign out</a>
                 </div>
               </li>
             </ul>
@@ -181,16 +196,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="{{asset('admin/dist/img/avatar.png')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>Welcome</p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          {{$data->username}}
         </div>
       </div>
 
       <!-- search form (Optional) -->
+      <!--
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -199,24 +215,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </button>
             </span>
         </div>
-      </form>
+      </form> -->
       <!-- /.search form -->
-
+     
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">HEADER</li>
+        <li class="header">MODULES HEADING</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>Link</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Multilevel</span>
+        <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+        <li ><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="treeview {{ Request::is('office/*') ? 'active' : '' }}">
+          <a href="#"><i class="fa fa-home"></i> <span>Office</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#">Link in level 2</a></li>
-            <li><a href="#">Link in level 2</a></li>
+            <li class="{{ Request::is('office/createEmp') ? 'active' : '' }}"><a href="{{url('/office/createEmp')}}">Add Employee</a></li>
+            <li class="{{ Request::is('office/empList') ? 'active' : '' }}"><a href="{{url('/office/empList')}}">Employee List</a></li>
+          </ul>
+        </li>
+        <li class="treeview {{ Request::is('system/*') ? 'active' : '' }}">
+          <a href="#"><i class="fa fa-gears"></i> <span>System Setup</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ Request::is('system/creatUser') ? 'active' : '' }}"><a href="{{url('/system/creatUser')}}">Create System User</a></li>
+            <li class="{{ Request::is('system/userlist') ? 'active' : '' }}"><a href="{{url('/system/userlist')}}">System User List</a></li>
           </ul>
         </li>
       </ul>

@@ -30,26 +30,30 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>LTE</a>
+    <img src="{{asset('img/logo.png')}}" alt=""><br>
+    <a href="#"><b>System</b> Login</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Type User Name and Password</p>
 
-    <form action="../../index2.html" method="post">
+    <form action="{{route('systemuser_login')}}" method="post">
+    @csrf
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Email">
+        <input type="text" class="form-control" placeholder="User Name" name="name" @if(Cookie::has('username')) value="{{Cookie::get('username')}}" @endif>
         <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <span class="text-danger"> @error('name') {{$message}} @enderror</span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password">
+        <input type="password" class="form-control" placeholder="Password" name="password" @if(Cookie::has('password')) value="{{Cookie::get('password')}}" @endif>
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <span class="text-danger"> @error('password') {{$message}} @enderror</span>
       </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck" style="padding-left:20px;">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox" value="remember_me" id="remember_me" name="remember_me" @if(Cookie::has('username')) checked @endif> Keep Me Looged in
             </label>
           </div>
         </div>
@@ -60,7 +64,20 @@
         <!-- /.col -->
       </div>
     </form>
-
+    @if(Session::has('success'))
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-check"></i> Finished!</h4>
+        {{Session::get('success')}}
+    </div>
+    @endif
+    @if(Session::has('fail'))
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+        {{Session::get('fail')}}
+    </div>
+    @endif
   </div>
   <!-- /.login-box-body -->
 </div>
