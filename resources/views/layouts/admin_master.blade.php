@@ -28,7 +28,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{{asset('admin/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+  <script src="{{asset('admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
   <!-- Google Font -->
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -155,15 +157,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $usertype =Session::get('Usersession')['UserType'];
                   @endphp
                   @if($usertype==1)
-                    Administrator
+                    Owner
                   @endif
                   @if($usertype==2)
-                    Manager
+                    Administrator
                   @endif
                   @if($usertype==3)
+                    Manager
+                  @endif
+                  @if($usertype==4)
                     Editor
                   @endif
-                  <small>Bunny Run System Administration</small>
+                  <?php 
+                  if(Session::get('Usersession')['branch']!=0){
+                    $branch = DB::table('branchs')->where('id',Session::get('Usersession')['branch'])->first();
+                    $b_name =$branch->branch_name;
+                  }
+                  if(Session::get('Usersession')['branch']==0){
+                    $b_name ="Owner";                      
+                  }
+                  ?>
+                  <small>Branch Name : {{$b_name}}</small>
+                  
                 </p>
               </li>
               <!-- Menu Body -->
@@ -223,7 +238,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <li class="header">MODULES HEADING</li>
         <!-- Optionally, you can add icons to the links -->
         <li class="{{ Request::is('dashboard') ? 'active' : '' }}"><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-        <li ><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
+        <li class="treeview {{ Request::is('order/*') ? 'active' : '' }}">
+          <a href="#"><i class="fa fa-share-square"></i> <span>Delivery Orders</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ Request::is('order/member') ? 'active' : '' }}"><a href="{{url('/order/member')}}">Member Orders</a></li>
+            <li class="{{ Request::is('order/onetime') ? 'active' : '' }}"><a href="{{url('/order/onetime')}}">OneTime User Orders</a></li>
+            <li class="{{ Request::is('order/clicent') ? 'active' : '' }}"><a href="{{url('/order/client')}}">Client Orders</a></li>
+          </ul>
+        </li>
+        <li class="treeview {{ Request::is('people/*') ? 'active' : '' }}">
+          <a href="#"><i class="fa fa-users"></i> <span>Peoples</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="{{ Request::is('people/clients') ? 'active' : '' }}"><a href="{{url('/people/clients')}}">Clients</a></li>
+            <li class="{{ Request::is('people/users') ? 'active' : '' }}"><a href="{{url('/people/users')}}">Users</a></li>
+            <li class="{{ Request::is('people/delimen') ? 'active' : '' }}"><a href="{{url('/people/delimen')}}">Delivery Men</a></li>
+          </ul>
+        </li>
         <li class="treeview {{ Request::is('office/*') ? 'active' : '' }}">
           <a href="#"><i class="fa fa-home"></i> <span>Office</span>
             <span class="pull-right-container">
@@ -231,8 +269,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </span>
           </a>
           <ul class="treeview-menu">
-            <li class="{{ Request::is('office/createEmp') ? 'active' : '' }}"><a href="{{url('/office/createEmp')}}">Add Employee</a></li>
-            <li class="{{ Request::is('office/empList') ? 'active' : '' }}"><a href="{{url('/office/empList')}}">Employee List</a></li>
+            <li class="{{ Request::is('office/employee') ? 'active' : '' }}"><a href="{{url('/office/employee')}}">Add Employee</a></li>
+            <li class="{{ Request::is('office/emplist') ? 'active' : '' }}"><a href="{{url('/office/emplist')}}">Employee List</a></li>
+            <li class="{{ Request::is('office/department') ? 'active' : '' }}"><a href="{{url('/office/department')}}">Department</a></li>
+            <li class="{{ Request::is('office/branch') ? 'active' : '' }}"><a href="{{url('/office/branch')}}">Branch</a></li>
           </ul>
         </li>
         <li class="treeview {{ Request::is('system/*') ? 'active' : '' }}">
@@ -244,8 +284,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="treeview-menu">
             <li class="{{ Request::is('system/creatUser') ? 'active' : '' }}"><a href="{{url('/system/creatUser')}}">Create System User</a></li>
             <li class="{{ Request::is('system/userlist') ? 'active' : '' }}"><a href="{{url('/system/userlist')}}">System User List</a></li>
+            <li class="{{ Request::is('system/township') ? 'active' : '' }}"><a href="{{url('/system/township')}}">Township/State</a></li>
+            <li class="{{ Request::is('system/zone') ? 'active' : '' }}"><a href="{{url('/system/zone')}}">Zone/Area</a></li>
           </ul>
         </li>
+        <li ><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -344,14 +387,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- REQUIRED JS SCRIPTS -->
 
 <!-- jQuery 3 -->
-<script src="{{asset('admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('admin/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('admin/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('admin/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('admin/dist/js/adminlte.min.js')}}"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
+     <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
+        $('#example1').DataTable({
+          aLengthMenu: [
+            [30, 50, 100, 200, -1],
+            [30, 50, 100, 200, "All"]
+          ],
+        });
+      });
+      </script>
 </body>
 </html>

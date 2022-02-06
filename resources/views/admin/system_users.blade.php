@@ -7,6 +7,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
+      <a href="{{url()->previous();}}"><i class="fa fa-arrow-circle-left" alt="Back" data-toggle="tooltip"title="Back"></i></a>
         System Setup
         <small>User List</small>
       </h1>
@@ -40,7 +41,7 @@
                             </div>
                             @endif
                     <div class="col-lg-12">
-                       <table class="table table-bordered table-striped">
+                       <table class="table table-bordered table-striped data_list">
                         <tr>
                         <th style="width: 50px">#</th>
                         <th>User Name</th>
@@ -55,27 +56,41 @@
                         <tr>
                             <td>{{$count++}}</td>
                             <td>{{$user->username}}</td>
-                            <td>{{$user->empID}}</td>
+                            <td>
+                              
+                              <?php
+                              if($user->empID!=1){
+                                  $data = DB::table('employees')->where('id', $user->empID)->first();
+                                  echo $data->empname;
+                              }
+                              if($user->empID==1){echo "Main Administrator";}
+                              ?>
+                            </td>
                             <td>{{$user->email}}</td>
                             <td>
-                              @if($user->usertypeID ==1)
-                                Administrator
-                              @endif
-                              @if($user->usertypeID  ==2)
-                                Manager
-                              @endif
-                              @if($user->usertypeID  ==3)
-                                Editor
-                              @endif
+                            @if($user->usertypeID ==1)
+                                    Owner
+                                @endif
+                                @if($user->usertypeID  ==2)
+                                    Administrator
+                                @endif
+                                @if($user->usertypeID  ==3)
+                                    Manager
+                                @endif
+                                @if($user->usertypeID  ==4)
+                                    Editor
+                                @endif
                             </td>
                             <td class="text-right" style="width:100px;">
                             <a href="{{url('system/editsystem_user',$user->id)}}">
                               <button type="button" class="btn btn-xs btn-info" data-toggle="tooltip"title="Edit"><i class="fa fa-edit"></i></button>
                             </a>
-                            <a href="#" data-toggle="modal" data-target="#modal-danger">
+                            <a href="#delModal" id="<?=$user->id?>" class="delete_data">
                               <button class="btn btn-xs btn-danger" data-toggle="tooltip"title="Delete"><i class="fa fa-times"></i></button>
                             </a>
+                            <a href="{{url('system/infosystem_user',$user->id)}}">
                               <button class="btn btn-xs btn-default" data-toggle="tooltip"title="Detail"><i class="fa fa-bars"></i></button>
+                            </a>
                             </td>
                         </tr>
                        
@@ -83,8 +98,8 @@
               </table>
               <div class="text-right">
               {{$users->links()}}
-</div>
-              <h3>Ajax List</h3>
+              </div>
+              
               <div class="ajaxlist">
 
               </div>
@@ -100,7 +115,8 @@
   </div>
   <!-- /.content-wrapper -->
   <!-- /.modal start -->
-  <div class="modal modal-primary fade" id="modal-danger">
+  
+  <div class="modal modal-primary fade" id="delModal">
           <div class="modal-dialog modal-sm">
             <div class="modal-content">
               <div class="modal-header">
@@ -111,9 +127,9 @@
               <div class="modal-body">
                 <p>Are you sure you wnat to DELETE user!&hellip;</p>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer del_foot">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline">Confirm Delete</button>
+                <button type="button" class="btn btn-outline delete-confrim">Confirm Delete</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -158,5 +174,17 @@
        // });
       //}
     });
+    var id;
+      $('.data_list').on('click', '.delete_data', function(e) {
+        
+          e.preventDefault();
+          id = e.currentTarget.id;
+          $('#delModal').modal('show');
+          return false;
+      });
+      $('.del_foot').on('click', '.delete-confrim', function(e){
+          window.location = 'deletesystem_user/' + id;
+          
+      });
   </script>
 @endsection

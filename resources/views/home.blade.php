@@ -36,10 +36,19 @@
             <div class="col-10 offset-1">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="inner_box ">
-                            <a href="{{url('/create_account')}}">
+                        <div class="inner_box " style="<?php if(isset(Session::get('pubUsersession')['UserId'])){ echo 'background:#ccc;';} ?>" >
+                            <?php 
+                                 if(isset(Session::get('pubUsersession')['UserId'])){
+                            ?>
+                            
+                            <?php
+                                 }
+                                 else{
+                            ?>
+                            <a href="{{url('/registration')}}">
+                            <?php } ?>
                             <div class="inner_icon">
-                                <img src="{{asset('img/icon_1.jpg')}}" alt="">
+                                <img src="{{asset('img/icon_1.png')}}" alt="">
                             </div>
                             <div class="title"> Create Account</div>
                             <div class="desc">
@@ -50,6 +59,11 @@
                     </div>
                     <div class="col-md-4">
                         <div class="inner_box ">
+                        <?php 
+                                 if(isset(Session::get('pubUsersession')['UserId'])){
+                            ?>
+                            <a href="{{url('/order_request')}}">
+                        <?php } else { }?>
                             <div class="inner_icon">
                                 <img src="{{asset('img/icon_2.jpg')}}" alt="">
                             </div>
@@ -57,6 +71,8 @@
                             <div class="desc">
                             Fill Delivery Info and upload photo
                             </div>
+                        </a>
+                        
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -83,7 +99,9 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 big_hd_text">Quick Start Now!</div>
                     <div class="col-lg-4 col-md-4" style="text-align:center;">
+                    <a href="{{url('/donthave')}}">                                    
                         <button type="button" class="btn quick_start_button" style="border-radius:0;"><i class="fas fa-paper-plane"></i> &nbsp; START</button>
+                    </a>
                     </div>
                     <div class="col-lg-4 col-md-4 right_bar_img">
                         <img src="{{asset('img/right_bar.jpg')}}" alt="">

@@ -7,8 +7,9 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
+      <a href="{{url()->previous();}}"><i class="fa fa-arrow-circle-left" data-toggle="tooltip"title="Back"></i></a>
         System Setup
-        <small class="text-black">User Registration</small>
+        <small class="text-black">Edit System User</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -61,20 +62,40 @@
                             </div>
                             <div class="form-group">
                             <label for="">Employee Name </label><span class="text-danger">: @error('empID') {{$message}} @enderror</span>
-                            <select name="empID" id="" class="form-control">
-                                <option value="">Select User Type</option>
-                                <option value="1" @if($userdata->empID==1) {{'selected'}} @endif>Ko Win Htike</option>
-                                <option value="2" @if($userdata->empID==2) {{'selected'}} @endif>Ma May Thu Zaw</option>
-                                <option value="3" @if($userdata->empID==3) {{'selected'}} @endif>Ko Linn Htike</option>
+                            <select name="empID" id="emplist" class="form-control" required>
+                                <option value="">Select First Branch</option>
+                                <?php
+                                if($userdata->empID!=1){
+                                    $emp = DB::table('employees')->where('id', $userdata->empID)->first();
+                                ?>
+                                <option value="{{$userdata->empID}}" selected>{{$emp->empname}} &nbsp; [{{$emp->position}}]</option>
+                                <?php
+                                }
+                                if($userdata->empID==1){
+                                ?>
+                                <option value="1" selected>Main Administrator</option>
+                                <?php
+                                }
+                              ?>
+                                
+                            </select>
+                            </div>
+                            <div class="form-group">
+                            <label for="">Branch </label><span class="text-danger">: @error('branch') {{$message}} @enderror</span>
+                            <select name="branch" id="branch" class="form-control" required>
+                                <option value="">Select Branch</option>
+                                @foreach($branch as $bh)
+                                    <option value="{{$bh->id}}" {{($bh->id==$userdata->branch) ? 'selected' : ''}}>{{$bh->branch_name}}</option>
+                                @endforeach
                             </select>
                             </div>
                             <div class="form-group">
                             <label for="">User Type (Rank) </label><span class="text-danger">: @error('usertypeID') {{$message}} @enderror</span>
                             <select name="usertypeID" id="" class="form-control">
                                 <option value="">Select User Type</option>
-                                <option value="1" @if($userdata->usertypeID==1) {{'selected'}} @endif>Administrator</option>
-                                <option value="2" @if($userdata->usertypeID==2) {{'selected'}} @endif>Manager</option>
-                                <option value="3" @if($userdata->usertypeID==3) {{'selected'}} @endif>Editor</option>
+                                <option value="2" @if($userdata->usertypeID==2) {{'selected'}} @endif>Administrator</option>
+                                <option value="3" @if($userdata->usertypeID==3) {{'selected'}} @endif>Manager</option>
+                                <option value="4" @if($userdata->usertypeID==4) {{'selected'}} @endif>Editor</option>
                             </select>
                             </div>
                         </div>
@@ -99,3 +120,29 @@
   </div>
   <!-- /.content-wrapper -->
 @endsection
+<script src="{{asset('admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script>
+$(document).ready(function(){
+    $("#branch").change(function(){
+      var id = $(this).val();
+      var div=$(this).parent();
+      var op=" ";
+            $.ajax
+            ({
+                type: "get",
+                url: "/system/getemplist",
+                //url:'{!!URL::to('gettownship')!!}',
+                dataType: 'json',
+                data: {'id':id},
+                success: function (data) {
+                    
+                    op+='<option value="0" selected disabled>Select Employee</option>';
+                            for(var i=0;i<data.length;i++){
+                                op+='<option value="'+data[i].id+'">'+data[i].empname+' &nbsp; ['+data[i].position+']</option>';
+                            }
+                        document.getElementById('emplist').innerHTML=op;
+                }
+            })
+        });
+});
+</script>

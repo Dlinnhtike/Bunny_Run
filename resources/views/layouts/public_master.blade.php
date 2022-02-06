@@ -11,12 +11,15 @@
     <link href="{{asset('font_awsome/css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('font_awsome/css/brands.css')}}" rel="stylesheet">
     <link href="{{asset('font_awsome/css/solid.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.2.1/css/fixedHeader.bootstrap5.min.css"> 
+
     <!-- Google Fonts -->
      
     <title>Bunny Run | @yield('title')</title>
     <style>
       .sticky{
-        position: -webkit-sticky; position: sticky; top: 10px;
+        position: -webkit-sticky; position: sticky; top: 1px;
         //border:1px solid #f0f0f0;
         height:1px;
         z-index: 2;
@@ -39,13 +42,38 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 ">
                       <div class="row">
-                      <div class="col-lg-5 offset-lg-3 col-md-6 sign_in">
-                        <div class="smaill_size_link"><a href="#">Sign In</a></div>
-                        <div class="normal_link"><a href="">Create New Member</a></div>
+                      <div class="col-lg-5 offset-lg-1 col-md-5 sign_in">
+                        
+                        <?php 
+                          if(isset(Session::get('pubUsersession')['UserId'])){
+                          ?>
+                          <div class="smaill_size_link"><a href="{{url('/userlogout')}}">Sign Out &nbsp;<i class="fa fa-sign-out"></i></a></div>
+                          <div class="normal_link" style="text-transform: capitalize;"><a href="{{url('/userprofile')}}">{{ Session::get('pubUsersession')['UserName']}} &nbsp; <i class="fa fa-user"></i></a></div>
+                        <?php
+                          }
+                          else{
+                        ?>
+                        <div class="smaill_size_link"><a href="{{url('/userlogin')}}">Sign In</a></div>
+                        <?php
+                          $url =Request::segment(1);
+                          if($url=="success_login"){ 
+                          ?>
+                          <div class="normal_link"><a href="#">Create New Member</a></div>
+                          <?php
+                          }else{
+                        ?>
+                        <div class="normal_link"><a href="{{url('/registration')}}">Create New Member</a></div>
+                        <?php } 
+                          }
+                        ?>
                       </div>
-                      <div class="col-lg-4 col-md-6 help">
-                        <div class="smaill_size_link"><a href="#">Neet to Help</a></div>
+                      <div class="col-lg-4 col-md-5 help">
+                        <div class="smaill_size_link "><a href="#">Neet to Help</a></div>
                         <div class="normal_link"><a href="">+959 421 011541</a></div>
+                      </div>
+                      <div class="col-lg-2 col-md-2 lang_frame">
+                       <a href="{{url('/locale/mm')}}"> MM</a>
+                       <a href="{{url('/locale/en')}}"> EN</a> 
                       </div>
                       </div>
                     </div>
@@ -61,8 +89,29 @@
                 <span class="main_title">Bunny Run</span>
               </div>
               <div class="mobile_signin_frame">
-                  <div class="smaill_size_link"><a href="#">Sign In</a></div>
-                  <div class="normal_link"><a href="">Create New Member</a></div>
+              <?php 
+                          if(isset(Session::get('pubUsersession')['UserId'])){
+                            $userId= Session::get('pubUsersession')['UserId'];
+                          ?>
+                          <div class="smaill_size_link"><a href="{{url('/userlogout')}}">Sign Out &nbsp;<i class="fa fa-sign-out"></i></a></div>
+                          <div class="normal_link" style="text-transform: capitalize;"><a href="{{url('/userprofile')}}">{{ Session::get('pubUsersession')['UserName']}} &nbsp; <i class="fa fa-user"></i></a></div>
+                        <?php
+                          }
+                          else{
+                        ?>
+                        <div class="smaill_size_link"><a href="{{url('/userlogin')}}">Sign In</a></div>
+                        <?php
+                          $url =Request::segment(1);
+                          if($url=="success_login"){ 
+                          ?>
+                          <div class="normal_link"><a href="#">Create New Member</a></div>
+                          <?php
+                          }else{
+                        ?>
+                        <div class="normal_link"><a href="{{url('/registration')}}">Create New Member</a></div>
+                        <?php } 
+                          }
+                        ?>
               </div>
               <div class="mobile_menu_frame">
                   <div class="m_menu_bar" style="z-index:11; position:relative;">
@@ -104,13 +153,13 @@
                       <div class="col-lg-10 col-md-11">
                     
                         <ul class="menu">
-                          <li><a href="{{url('/')}}" style="color:@php if($check_link==''){echo 'red';} @endphp">Home </a> <div class="bg_box">Home</div></li>
-                          <li><a href="{{url('/services')}}" style="color:@php if($check_link=='services'){echo 'red';} @endphp">Services</a> <div class="bg_box">Services</div></li>
-                          <li><a href="{{url('/pricing')}}" style="color:@php if($check_link=='pricing'){echo 'red';} @endphp">Pricing</a> <div class="bg_box">Pricing</div></li>
-                          <li><a href="{{url('/blog')}}" style="color:@php if($check_link=='blog'){echo 'red';} @endphp">Blog</a> <div class="bg_box">Blog</div></li>
-                          <li><a href="{{url('/about')}}" style="color:@php if($check_link=='about'){echo 'red';} @endphp">About Us</a> <div class="bg_box">About Us</div></li>
-                          <li><a href="{{url('/contact')}}" style="color:@php if($check_link=='contact'){echo 'red';} @endphp">Contact Us</a> <div class="bg_box">Contact Us</div></li>
-                          
+                          <li><a href="{{url('/')}}" style="color:@php if($check_link=='' || $check_link=='registration' || $check_link=='donthave' || $check_link=='userlogin'){echo 'red';} @endphp">{{__('menu.Home')}} </a> <div class="bg_box"></div></li>
+                          <li><a href="{{url('/services')}}" style="color:@php if($check_link=='services'){echo 'red';} @endphp">{{__('menu.Services')}}</a> <div class="bg_box"></div></li>
+                          <li><a href="{{(isset($userId)) ? url('/order_request') : url('/donthave')}}" style="color:@php if($check_link=='order_request'){echo 'red';} @endphp">{{__('menu.Order')}}</a> <div class="bg_box"></div></li>
+                          <li><a href="{{url('/pricing')}}" style="color:@php if($check_link=='pricing'){echo 'red';} @endphp">{{__('menu.Pricing')}}</a> <div class="bg_box"></div></li>
+                          <li><a href="{{url('/blog')}}" style="color:@php if($check_link=='blog'){echo 'red';} @endphp">{{__('menu.Blog')}}</a> <div class="bg_box"></div></li>
+                          <li><a href="{{url('/about')}}" style="color:@php if($check_link=='about'){echo 'red';} @endphp">{{__('menu.About')}}</a> <div class="bg_box"></div></li>
+                          <li><a href="{{url('/contact')}}" style="color:@php if($check_link=='contact'){echo 'red';} @endphp">{{__('menu.Contact')}}</a> <div class="bg_box"></div></li>
                         </ul>
                       </div>
                       <div class="col-lg-2 col-md-1 quick_send_icon">
@@ -139,6 +188,10 @@
             <a class="nav__link" href="{{url('/services')}}">
                 <i class="fa fa-dolly"></i>
                 Services
+            </a>
+            <a class="nav__link" href="{{(isset($userId)) ? url('/order_request') : url('/donthave')}}">
+                <i class="fa fa-dolly"></i>
+                Deli Order
             </a>
             <a class="nav__link" href="{{url('/pricing')}}">
                 <i class="fa fa-hand-holding-usd"></i>
@@ -235,14 +288,20 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
     -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.2.1/js/dataTables.fixedHeader.min.js"></script>
+  <script src="{{asset('js/enchanter.js')}}"></script>
       <script>
-                window.addEventListener("load", () => {
+        window.addEventListener("load", () => {
             document.body.classList.remove("preload");
         });
 
@@ -257,6 +316,20 @@
                 nav.classList.remove("nav--open");
             });
         });
+        var registrationForm = $('#registration');
+    var formValidate = registrationForm.validate({
+      errorClass: 'is-invalid',
+      errorPlacement: () => false
+    });
+
+    const wizard = new Enchanter('registration', {}, {
+      onNext: () => {
+        if (!registrationForm.valid()) {
+          formValidate.focusInvalid();
+          return false;
+        }
+      }
+    });
         </script>
   </body>
 </html>

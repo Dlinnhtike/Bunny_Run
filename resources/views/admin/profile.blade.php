@@ -8,6 +8,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
+      <a href="{{url()->previous();}}"><i class="fa fa-arrow-circle-left" alt="Back" data-toggle="tooltip"title="Back"></i></a>
         System Setup
         <small>User Profile</small>
       </h1>
@@ -79,7 +80,15 @@
         <!-- /.tab-pane -->
         <div class="active tab-pane" id="editprofile">
           <!-- The timeline -->
-          <div style="height:68px;"></div>
+          <div style="min-height:68px;">
+          @if(Session::has('fail'))
+          <div class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+              {{Session::get('fail')}}
+          </div>
+          @endif
+        </div>
           <form class="form-horizontal">
             <div class="form-group">
               <label for="" class="col-sm-2 control-label">User Name</label>
@@ -119,28 +128,34 @@
         <!-- /.tab-pane -->
 
         <div class="tab-pane" id="changepassword">
-        <div style="height:68px;"></div>
-          <form class="form-horizontal">
+        <div style="min-height:68px;">
+         
+        </div>
+          <form class="form-horizontal" action="{{url('change_systemuser_password')}}" method="POST">
+          @csrf
             <div class="form-group">
               <label for="" class="col-sm-2 control-label">Current Password</label>
 
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="" placeholder="Type Your Password">
+                <input type="password" class="form-control" id="" placeholder="Type Your Password" name="current" required>
+                <input type="hidden" value="{{Session::get('Usersession')['UserId']}}" name="id">
               </div>
             </div>
             <div class="form-group">
-              <label for="" class="col-sm-2 control-label">New Password</label>
+              <label for="" class="col-sm-2 control-label">New Password </label>
 
               <div class="col-sm-10">
-              <input type="text" class="form-control" id="" placeholder="Type New Password">
+              <input type="password" class="form-control" id="" placeholder="Type New Password" name="newpassword" >
+              <span class="text-danger"> @error('newpassword') {{$message}} @enderror</span>
               </div>
             </div>
             <div class="form-group">
-              <label for="" class="col-sm-2 control-label">Confirm Password</label>
+              <label for="" class="col-sm-2 control-label">Confirm Password </label>
 
               <div class="col-sm-10">
-              <input type="text" class="form-control" id="" placeholder="Re-enter Password">
-              </div>
+              <input type="password" class="form-control" id="" placeholder="Re-enter Password" name="confirmpassword" >
+              <span class="text-danger"> @error('confirmpassword') {{$message}} @enderror</span>  
+            </div>
             </div>
             
             <div class="form-group">

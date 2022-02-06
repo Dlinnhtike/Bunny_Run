@@ -7,6 +7,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
+      <a href="{{url()->previous();}}"><i class="fa fa-arrow-circle-left" data-toggle="tooltip"title="Back"></i></a>
         System Setup
         <small class="text-black">User Registration</small>
       </h1>
@@ -60,20 +61,28 @@
                             </div>
                             <div class="form-group">
                             <label for="">Employee Name </label><span class="text-danger">: @error('empID') {{$message}} @enderror</span>
-                            <select name="empID" id="" class="form-control">
-                                <option value="">Select User Type</option>
-                                <option value="1" {{ old('empID') == '1' ? 'selected' : '' }}>Ko Win Htike</option>
-                                <option value="2" {{ old('empID') == '2' ? 'selected' : '' }}>Ma May Thu Zaw</option>
-                                <option value="3" {{ old('empID') == '3' ? 'selected' : '' }}>Ko Linn Htike</option>
+                            <select name="empID" id="emplist" class="form-control">
+                                <option value="">Select First Branch</option>
+                                
+                            </select>
+                            </div>
+                            <div class="form-group">
+                            <label for="">Branch </label><span class="text-danger">: @error('branch') {{$message}} @enderror</span>
+                            <select name="branch" id="branch" class="form-control" required>
+                                <option value="">Select Branch</option>
+                                @foreach($branch as $bh)
+                                    <option value="{{$bh->id}}">{{$bh->branch_name}}</option>
+                                @endforeach
                             </select>
                             </div>
                             <div class="form-group">
                             <label for="">User Type (Rank) </label><span class="text-danger">: @error('usertypeID') {{$message}} @enderror</span>
                             <select name="usertypeID" id="" class="form-control">
                                 <option value="">Select User Type</option>
-                                <option value="1" {{ old('usertypeID') == '1' ? 'selected' : '' }}>Administrator</option>
-                                <option value="2" {{ old('usertypeID') == '2' ? 'selected' : '' }}>Manager</option>
-                                <option value="3" {{ old('usertypeID') == '3' ? 'selected' : '' }}>Editor</option>
+                                <!-- <option value="1" {{ old('usertypeID') == '1' ? 'selected' : '' }}>Owner</option> -->
+                                <option value="2" {{ old('usertypeID') == '2' ? 'selected' : '' }}>Administrator</option>
+                                <option value="3" {{ old('usertypeID') == '3' ? 'selected' : '' }}>Manager</option>
+                                <option value="4" {{ old('usertypeID') == '4' ? 'selected' : '' }}>Editor</option>
                             </select>
                             </div>
                         </div>
@@ -98,3 +107,29 @@
   </div>
   <!-- /.content-wrapper -->
 @endsection
+<script src="{{asset('admin/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script>
+$(document).ready(function(){
+    $("#branch").change(function(){
+      var id = $(this).val();
+      var div=$(this).parent();
+      var op=" ";
+            $.ajax
+            ({
+                type: "get",
+                url: "/system/getemplist",
+                //url:'{!!URL::to('gettownship')!!}',
+                dataType: 'json',
+                data: {'id':id},
+                success: function (data) {
+                    
+                    op+='<option value="0" selected disabled>Select Employee</option>';
+                            for(var i=0;i<data.length;i++){
+                                op+='<option value="'+data[i].id+'">'+data[i].empname+' &nbsp; ['+data[i].position+']</option>';
+                            }
+                        document.getElementById('emplist').innerHTML=op;
+                }
+            })
+        });
+});
+</script>
